@@ -1,0 +1,7 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+POST,/api/v1/auth/login [setup],HTTPError('429 Client Error: Too Many Requests for url: /api/v1/auth/login [setup]'),105,2026-08-13T05:47:08Z,2026-08-13T05:47:14Z
+POST,/api/v1/auth/login [setup],HTTPError('422 Client Error: Unprocessable Entity for url: /api/v1/auth/login [setup]'),45,2026-08-13T05:47:05Z,2026-08-13T05:47:07Z
+POST,/api/v1/auth/login,"CatchResponseError('Login 422: {""detail"":[{""type"":""value_error"",""loc"":[""body"",""email""],""msg"":""value is not a valid email address: T')",1114,2026-08-13T05:47:05Z,2026-08-13T05:48:34Z
+GET,/api/v1/programs,RemoteDisconnected('Remote end closed connection without response'),2,2026-08-13T05:47:22Z,2026-08-13T05:48:03Z
+POST,/api/v1/auth/login,"CatchResponseError('Login 429: {""detail"":""Rate limit exceeded. Max 600 requests per 60s.""}')",72810,2026-08-13T05:47:08Z,2026-08-13T05:48:35Z
+GET,/api/v1/leaderboard,RemoteDisconnected('Remote end closed connection without response'),1,2026-08-13T05:47:15Z,2026-08-13T05:47:15Z

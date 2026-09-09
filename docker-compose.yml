@@ -1,0 +1,48 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: bug-bang-mongodb
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=cyber_olympics
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: bug-bang-backend
+    restart: unless-stopped
+    ports:
+      - "25005:25005"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DB_NAME=cyber_olympics
+      - JWT_SECRET=${SECRET_KEY:-your-super-secret-jwt-key-change-in-production}
+      - JWT_ALGORITHM=HS256
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@cyberolympics.io}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-Admin@CyberOlympics2025!}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - CORS_ORIGINS=["*"]
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: bug-bang-frontend
+    restart: unless-stopped
+    ports:
+      - "30006:30005"
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:

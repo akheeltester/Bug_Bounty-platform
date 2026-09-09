@@ -1,0 +1,5 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+POST,/api/v1/auth/login [setup],HTTPError('429 Client Error: Too Many Requests for url: /api/v1/auth/login [setup]'),430,2026-08-13T06:44:37Z,2026-08-13T06:46:30Z
+POST,/api/v1/auth/login [setup],HTTPError('401 Client Error: Unauthorized for url: /api/v1/auth/login [setup]'),19,2026-08-13T06:44:35Z,2026-08-13T06:45:36Z
+POST,/api/v1/auth/login [setup],"gaierror(-3, 'Temporary failure in name resolution')",5,2026-08-13T06:46:04Z,2026-08-13T06:46:17Z
+POST,/api/v1/auth/login [setup],"gaierror(-2, 'Name or service not known')",37,2026-08-13T06:45:09Z,2026-08-13T06:46:29Z
